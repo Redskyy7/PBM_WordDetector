@@ -9,5 +9,3 @@ Este é um programa em Python que recebe como entrada um arquivo contendo uma im
 - Gera uma nova imagem PBM com as palavras circunscritas por retângulos.
 
 Este projeto não tem dependências externas além do Python padrão.
-
----
