@@ -1,15 +1,38 @@
 def read_pbm(file_path):
-    with open(file_path) as f:
-        data = [x for x in f if not x.startswith('#')]
-        largura, altura = data[1].split()
-        # for i in range(altura):
-        #     for j in range(largura):
+    try:
+        with open(file_path) as f:
+            magic_number = f.readline().strip()
+            if magic_number != "P1":
+                print("Error: Invalid PBM file format")
+                return None
+            
+            while (True):
+                temp = f.readline()
+                if temp.startswith('#'):
+                    continue
+                else:
+                    dimensions = temp.split()
+                    width = int(dimensions[0])
+                    height = int(dimensions[1])
+                    break
 
+            imagem = [[0] * width for _ in range(height)]
 
-    # dimensions = map(int,data.pop(0).split())
-    # arr = []
-    # col_number = 0
-    # for c in data.pop(0):
-    #     if(col_number > dimensions[0]):
-    #         col_number = 0 
-    return int(largura), int(altura)
+            for i in range(height-1):
+                for j in range(width-1):
+                    temp = f.read(1)
+                    if (temp != '\n'):
+                        pixel_value = int(temp)
+                        imagem[i][j] = pixel_value
+            
+            return width, height, imagem
+
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found")
+        return None
+    except Exception as e:
+        print("An error occurred: ", e)
+        return None
+    # print(imagem)
+
+# lorem_s12_c02_espacos, linhas = 102, palavras = 476
