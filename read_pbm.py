@@ -1,4 +1,5 @@
 def read_pbm(file_path):
+    """Reads a Portable Bitmap (PBM) file and extracts the dimensions and pixel values of the binary image."""
     try:
         with open(file_path) as f:
             magic_number = f.readline().strip()
