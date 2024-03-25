@@ -1,6 +1,6 @@
-# Fazer a erosão primeiro
-# Usar o resultado gerado e dilatar
-# Separar o array em 4 partes e criar threads para resolver o problema mais rapidamente
+# Run erode in the image
+# With the result dilate it
+# Split array in many parts and create threads to process each one
 import numpy as np
 import read_pbm
 import morphology
@@ -8,8 +8,8 @@ import morphology
 def main():
     print("Bem-vindo ao PBM_WordDetector!")
     width, height, img = read_pbm.read_pbm("./assets/lorem_s12_c02_noise.pbm")
-    result = morphology._dilation(img, False, 1, np.ones((100, 1), dtype=np.int64), width, height)
-    final_result = morphology._erosion(result, False, 1, np.ones((100, 1), dtype=np.int64), width, height)
+    result = morphology._dilation(img, False, 1, np.ones((100, 1), dtype=np.int64))
+    final_result = morphology._erosion(result, False, 1, np.ones((100, 1), dtype=np.int64))
     data = [[str(item) for item in row] for row in final_result]
     with open('./results.pbm', 'w') as file:
         file.write('P1\n')
