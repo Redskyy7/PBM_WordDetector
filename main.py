@@ -24,4 +24,4 @@ if __name__ == "__main__":
     main()
 
 
-# lorem_s12_c02_espacos, linhas = 102, palavras = 476
+# lorem_s12_c02_espacos, linhas = 102, palavras = 476 
