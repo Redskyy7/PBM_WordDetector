@@ -103,5 +103,5 @@ def morph_filter(operator='er',
                  sel=np.ones((3, 2), dtype=np.int64),
                  n_iterations=1,
                  as_gray=False):
-    """Allows to apply multiple morphological operations over an image"""
+    """Allows to apply multiple morphological operations over an image""" 
     return _OPS[operator](img, as_gray, n_iterations, sel)
