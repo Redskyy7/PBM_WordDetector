@@ -16,16 +16,16 @@ def read_pbm(file_path):
                     height = int(dimensions[1])
                     break
 
-            imagem = [[0] * width for _ in range(height)]
+            image = [[0] * width for _ in range(height)]
 
             for i in range(height-1):
                 for j in range(width-1):
                     temp = f.read(1)
                     if (temp != '\n'):
                         pixel_value = int(temp)
-                        imagem[i][j] = pixel_value
+                        image[i][j] = pixel_value
             
-            return width, height, imagem
+            return width, height, image
 
     except FileNotFoundError:
         print(f"Error: File '{file_path}' not found")
