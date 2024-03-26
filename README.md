@@ -1,11 +1,11 @@
 # PBM Word Detector
 
-Este é um programa em Python que recebe como entrada um arquivo contendo uma imagem binária no formato PBM ASCII (PGM tipo P1), que contém texto com uma ou mais colunas. O programa retorna quantas linhas e palavras o texto contém e gera uma imagem PBM com cada palavra circunscrita por um retângulo.
+This is a Python program that takes as input a file containing a binary image in PBM ASCII format (PGM type P1), which contains text with one or more columns. The program returns the number of lines and words in the text and generates a PBM image with each word enclosed by a rectangle.
 
-## Funcionalidades
+## Features
 
-- Abre arquivos PBM e processa imagens binárias.
-- Conta o número de linhas e palavras no texto.
-- Gera uma nova imagem PBM com as palavras circunscritas por retângulos.
+- Opens PBM files and processes binary images.
+- Counts the number of lines and words in the text.
+- Generates a new PBM image with words enclosed by rectangles.
 
-Este projeto não tem dependências externas além do Python padrão.
+This project uses the libraries numpy and itertools.

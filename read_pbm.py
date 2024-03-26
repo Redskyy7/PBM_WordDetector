@@ -1,3 +1,5 @@
+import numpy as np
+
 def read_pbm(file_path):
     """Reads a Portable Bitmap (PBM) file and extracts the dimensions and pixel values of the binary image."""
     try:
@@ -17,7 +19,7 @@ def read_pbm(file_path):
                     height = int(dimensions[1])
                     break
 
-            image = [[0] * width for _ in range(height)]
+            image = np.zeros((height, width), dtype=bool)
 
             for i in range(height-1):
                 for j in range(width-1):
