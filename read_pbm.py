@@ -20,7 +20,7 @@ def read_pbm(file_path):
                     break
             
             # Reading pixels array and only going to next row after having completed fully the 
-            image = np.zeros((columns_amount, rows_amount), dtype=int)
+            image = np.zeros((columns_amount, rows_amount), dtype=np.uint8)
             i, j = 0, 0
             while True:
                 char = f.read(1)
