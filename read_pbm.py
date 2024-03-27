@@ -15,20 +15,32 @@ def read_pbm(file_path):
                     continue
                 else:
                     dimensions = temp.split()
-                    width = int(dimensions[0])
-                    height = int(dimensions[1])
+                    rows_amount = int(dimensions[0])
+                    columns_amount = int(dimensions[1])
                     break
-
-            image = np.zeros((height, width), dtype=bool)
-
-            for i in range(height-1):
-                for j in range(width-1):
-                    temp = f.read(1)
-                    if (temp != '\n'):
-                        pixel_value = int(temp)
-                        image[i][j] = pixel_value
             
-            return width, height, image
+            # Reading pixels array and only going to next row after having completed fully the 
+            image = np.zeros((columns_amount, rows_amount), dtype=int)
+            i, j = 0, 0
+            while True:
+                char = f.read(1)
+                if not char:
+                    break
+                elif char in ['0', '1']:
+                    image[i][j] = int(char)
+                    j+= 1
+                    if j == rows_amount:
+                        j = 0
+                        i += 1
+                        if i == columns_amount:
+                            break
+                elif char == '\n':
+                    continue
+                else:
+                    print("Error: Invalid character in PBM file")
+            
+            # return width, height, image
+        return rows_amount, columns_amount, image
 
     except FileNotFoundError:
         print(f"Error: File '{file_path}' not found")
