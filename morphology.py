@@ -69,7 +69,7 @@ def apply_filter(operation, img, as_gray, sel):
 def add_padding(img, radius):
     width, height = img.shape
     pad_img_shape = (width + radius - 1, height + radius - 1)
-    pad_img = np.zeros(pad_img_shape, bool)
+    pad_img = np.zeros(pad_img_shape, dtype=np.uint8)
     pad_img[radius-2:(width + radius-2), radius-2:(height + radius-2)] = img
     return pad_img
 
@@ -82,7 +82,7 @@ def process_pixel(i, j, operation, as_gray, img):
 
 def apply_threshold(img, threshold=.5):
     """Applies the given threshold to an image, converting it into black and white"""
-    result = np.ones_like(img, dtype=bool)
+    result = np.ones_like(img, dtype=np.uint8)
     result[np.abs(img) <= threshold] = 0
     result[np.abs(img) > threshold] = 1
     return result
@@ -94,7 +94,7 @@ _OPS = {
 
 def morph_filter(operator='er',
                  img=None,
-                 sel=np.ones((3, 2), dtype=bool),
+                 sel=np.ones((3, 2), dtype=np.uint8),
                  as_gray=False):
     """Allows to apply multiple morphological operations over an image"""
     return _OPS[operator](img, as_gray, sel)

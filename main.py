@@ -2,6 +2,7 @@
 # With the result dilate it
 # Split array in many parts and create threads to process each one
 # Remove asgray from the function since all the P1 will be only black and white
+
 import numpy as np
 import read_pbm
 import morphology
@@ -12,7 +13,7 @@ def process_part(part):
     # Apply dilation to the part
     # part = morphology._dilation(part, True, np.ones((100, 1), dtype=np.uint8))
     # print(f"Dilation completed successfully at {datetime.now()} on thread {part}")
-    part = morphology._dilation(part, True, np.ones((3, 3), dtype=bool))
+    part = morphology._opening(part, True, np.ones((3, 3), dtype=np.uint8))
     print(f"Opening completed successfully at {datetime.now()}")
     return part
     # return morphology._erosion(part, True, np.ones((100, 1), dtype=np.uint8))
@@ -55,7 +56,7 @@ def main():
     # print(f"Dilation completed successfully at {datetime.now()}")
     # final_result = morphology._erosion(final_result, True, np.ones((50, 1), dtype=np.uint8))
     # print(f"Erosion completed successfully at {datetime.now()}")
-    data = [[str(int(item)) for item in row] for row in final_result]
+    data = [[str(item) for item in x] for x in final_result]
     with open('./results.pbm', 'w') as file:
         file.write('P1\n')
         file.write('# CREATOR: GIMP PNM Filter Version 1.1\n')
