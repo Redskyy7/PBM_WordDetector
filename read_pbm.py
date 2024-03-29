@@ -1,4 +1,5 @@
 import numpy as np
+from datetime import datetime
 
 def read_pbm(file_path):
     """Reads a Portable Bitmap (PBM) file and extracts the dimensions and pixel values of the binary image."""
@@ -15,30 +16,31 @@ def read_pbm(file_path):
                     continue
                 else:
                     dimensions = temp.split()
-                    rows_amount = int(dimensions[0])
-                    columns_amount = int(dimensions[1])
+                    rows_amount = int(dimensions[0]) # width
+                    columns_amount = int(dimensions[1]) # height
                     break
             
             # Reading pixels array and only going to next row after having completed fully the 
             image = np.zeros((columns_amount, rows_amount), dtype=np.uint8)
-            i, j = 0, 0
+            height, width = 0, 0
             while True:
                 char = f.read(1)
                 if not char:
                     break
                 elif char in ['0', '1']:
-                    image[i][j] = int(char)
-                    j+= 1
-                    if j == rows_amount:
-                        j = 0
-                        i += 1
-                        if i == columns_amount:
+                    image[height][width] = int(char)
+                    width+= 1
+                    if width == rows_amount:
+                        width = 0
+                        height += 1
+                        if height == columns_amount:
                             break
                 elif char == '\n':
                     continue
                 else:
                     print("Error: Invalid character in PBM file")
-            
+        
+        print(f"PBM file readed successfully at {datetime.now()}")
             # return width, height, image
         return rows_amount, columns_amount, image
 
