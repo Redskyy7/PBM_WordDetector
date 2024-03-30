@@ -20,11 +20,17 @@ def dilation (img, sel):
         offset_width_aux += 1
 
     # Iterate in the img array and checks for the positions of the sel
-    for i in range (offset_height, height - offset_height):
-        for j in range (offset_width, width- offset_width):
-            neighborhood = img[i - offset_height: i + offset_height_aux, j - offset_width: j + offset_width_aux]
-            dilated_value = np.max(neighborhood * sel)
-            result[i,j] = dilated_value
+    
+    neighborhood_views = np.lib.stride_tricks.sliding_window_view(img, (height_sel, width_sel))
+
+    # Compute dilated values for each neighborhood
+    dilated_values = np.max(neighborhood_views * sel, axis=(2, 3))
+
+    # Assign dilated values to result array
+    result[height_sel-1:height, width_sel-1:width] = dilated_values
+    
+    # print(f"Dilation completed successfully at {datetime.now()}")
+    # return result.astype(np.uint8)
 
     print(f"Dilation completed successfully at {datetime.now()}")
     return result
@@ -46,11 +52,12 @@ def erosion (img, sel):
         offset_width_aux += 1
 
     # Iterate in the img array and checks for the positions of the sel
-    for i in range (offset_height, height - offset_height):
-        for j in range (offset_width, width - offset_width):
-            neighborhood = img[i - offset_height: i+ offset_height_aux, j - offset_width: j + offset_width_aux]
-            eroded_value = np.min(neighborhood * sel)
-            result[i,j] = eroded_value
+    neighborhood_views = np.lib.stride_tricks.sliding_window_view(img, (height_sel, width_sel))
+    # Compute eroded values for each neighborhood
+    eroded_values = np.min(neighborhood_views * sel, axis=(2, 3))
+
+    # Assign eroded values to result array
+    result[height_sel-1:height, width_sel-1:width] = eroded_values
 
     print(f"Erosion completed successfully at {datetime.now()}")
     return result
