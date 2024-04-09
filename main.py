@@ -6,12 +6,24 @@
 import numpy as np
 import read_pbm
 import morphology
+import cv2
 from datetime import datetime
+from multiprocessing import Pool, cpu_count
+
+def process_part(part):
+    # Apply dilation to the part
+    # part = morphology.dilation(part, np.ones((2, 2), dtype=np.uint8))
+
+    # print(f"Opening completed successfully at {datetime.now()}")
+    return part
 
 def revert_img_pixels(img, width, height):
     for i in range(height - 1):
         for j in range(width - 1):
-            img[i][j] = img[i][j]
+            if (img[i][j] == 0):
+                img[i][j] = 1
+            else:
+                img[i][j] = 0
     return img
 
 def main():
@@ -48,7 +60,8 @@ def main():
     #     results = pool.map(process_part, parts)
     #     pool.close()
     #     pool.join()
-
+    #     print("Pool finished")
+    # print("Starting result")
     # final_result = np.vstack(results)
     # final_result = revert_img_pixels(final_result, width, height)
 
